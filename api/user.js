@@ -53,7 +53,7 @@ router.post('/api/post/delete-user/', async (req,res) => {
 })
 
 //register user
-router.post('/api/post/register', async (req, res) => {
+router.post('/api/register', async (req, res) => {
 
     try{
         const hashedPassword = bcrypt.hashSync(req.body.password,saltRounds);
@@ -76,7 +76,7 @@ router.post('/api/post/register', async (req, res) => {
 });
 
 //login user
-router.post('/login-user', async (req,res) => {
+router.post('/api/login-user', async (req,res) => {
     const {email, password} = req.body;
     console.log(email, password);
 
@@ -103,7 +103,7 @@ router.post('/login-user', async (req,res) => {
 
 
 //get user data of session
-router.get('/get-session', async (req,res) => {
+router.get('/api/get-session', async (req,res) => {
     console.log('req.session.userID', req.session.userID)
     let userInfo = await User.findOne({_id: req.session.userID})
     res.json({userInfo})
@@ -112,7 +112,7 @@ router.get('/get-session', async (req,res) => {
 })
 
 //check if session exists
-router.get('/check-session', (req,res) => {
+router.get('/api/check-session', (req,res) => {
     console.log(!req.session.userID)
    !req.session.userID ? res.send(false) : res.send(true)
 })
