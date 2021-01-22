@@ -86,6 +86,7 @@ router.post('/api/login-user', async (req,res) => {
             bcrypt.compare(password, user.password, function(err, isMatch) {
                 if(isMatch === true){
                     req.session.userID = user._id
+                    console.log(req.session)
                     res.json(user)
                 }else{
                     console.log('invalid password');
@@ -104,7 +105,7 @@ router.post('/api/login-user', async (req,res) => {
 
 //get user data of session
 router.get('/api/get-session', async (req,res) => {
-    console.log('req.session.userID', req.session.userID)
+    console.log('req.session', req.session)
     let userInfo = await User.findOne({_id: req.session.userID})
     res.json({userInfo})
 
