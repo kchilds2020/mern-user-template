@@ -8,7 +8,6 @@ const saltRounds = 10;
 //get all users
 router.get('/api/get/users/', (req,res) => {
     /* console.log(req.params.id) */
-    console.log('TESTS')
     User.find()
     .then(users => {
         /* console.log(user) */
@@ -28,7 +27,6 @@ router.get('/api/get/users/:id', (req,res) => {
 
 //update user based on id
 router.post('/api/post/update-user', async (req, res) => {
-    console.log('BODY',req.body);
     try{
         const response = await User.updateOne({_id: req.body._id}, {
             $set: {
@@ -45,7 +43,6 @@ router.post('/api/post/update-user', async (req, res) => {
 router.post('/api/post/delete-user/', async (req,res) => {
     try{
         let response = await User.deleteOne({_id: req.body._id})
-        console.log('REMOVE ITEM RESPONSE', response)
         res.json(response)
     }catch(error){
         console.log(error)
@@ -78,7 +75,6 @@ router.post('/api/register', async (req, res) => {
 //login user
 router.post('/api/login-user', async (req,res) => {
     const {email, password} = req.body;
-    console.log(email, password);
 
     try{
         let user = await User.findOne( {email: email} )
@@ -105,7 +101,6 @@ router.post('/api/login-user', async (req,res) => {
 
 //get user data of session
 router.get('/api/get-session', async (req,res) => {
-    console.log('req.session', req.session)
     let userInfo = await User.findOne({_id: req.session.userID})
     res.json({userInfo})
 
@@ -114,7 +109,6 @@ router.get('/api/get-session', async (req,res) => {
 
 //check if session exists
 router.get('/api/check-session', (req,res) => {
-    console.log(!req.session.userID)
    !req.session.userID ? res.send(false) : res.send(true)
 })
 
